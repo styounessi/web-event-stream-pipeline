@@ -1,0 +1,1 @@
+faust-streaming==0.10.15
