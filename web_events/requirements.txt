@@ -1,0 +1,2 @@
+fake-web-events==0.2.5
+kafka-python==2.0.2
