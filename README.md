@@ -70,3 +70,4 @@ Events are generated using the very handy [Fake Web Events](https://github.com/a
 
 The volume of events can be adjusted up or down based on testing needs. A look inside the Docker container for this application shows the stream of events as they generate.
 
+![Events](https://i.imgur.com/zqtqxm6.gif)
