@@ -97,3 +97,11 @@ Faust is used in this pipeline to receive raw web events, categorize the UTM sou
 ```
 
 ### ELK Stack 📚
+
+#### Logstash ⛓️
+
+#### Elasticsearch 🗄️
+
+#### Kibana 📊
+
+### Docker 🐳 & Docker Compose 🐙
