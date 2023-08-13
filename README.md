@@ -105,8 +105,24 @@ Another basic manipulation would be to remove certain fields that are not worth 
 
 #### Logstash 🌉
 
+The `logstash.conf` file included in this repo configures the Logstash service needed to ingest data from a Kafka topic, parse and convert the JSON content into individual fields, and then forward the processed data to Elasticsearch for storage and indexing. The configuration allows for dynamic date-based indexing:
+
+`index => "${ELASTIC_INDEX}-%{+YYYY.MM.dd}`
+
+The snippet above creates an index name that includes both a customizable prefix and a datestamp. This allows for time-based data segmentation, where each day's data is stored in a separate index.
+
 #### Elasticsearch 🗄️
 
+Elasticsearch serves as the persistent data sink layer that stores and makes data searchable and analyzable. It's capable of handling large volumes of structured and unstructured data.
+
 #### Kibana 📊
+
+In conjunction with Elasticsearch, Kibana is the data visualization and exploration tool that can be used to interact with the event data stored in Elasticsearch.
+
+![Hits](https://i.imgur.com/dsmiflj.gif)
+
+You can see the new events with each refresh and all dashboards, configured aggregations, etc are all updated with the changing data.
+
+<img src="https://i.imgur.com/kPgrzLQ.png" width="500"/> <img src="https://i.imgur.com/PgZjWYy.png" width="500"/>
 
 ### Docker 🐳 & Docker Compose 🐙
