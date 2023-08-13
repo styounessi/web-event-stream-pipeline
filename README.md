@@ -16,13 +16,13 @@ The idea behind this repo is to stand up a basic/viable functioning environment 
 5. **Data Sink**: Elasticsearch functions as the data sink and persistent storage solution for the processed data.
 6. **Analysis & Visualization**: Kibana enables users to explore and analyze the stored data in Elasticsearch.
 
-⚠️ This is purely a PoC (Proof of Concept) level project done for fun/interest. 
+⚠️ This project is done for fun/interest and to experiment with different ways to process, massage, and enrich events. 
 
 ## Why Do This? 🤷‍♂️
 
 ### Reactive Alerting 🚨
 
-KKibana offers [alerting](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [anamoly detection](https://www.elastic.co/guide/en/kibana/current/xpack-ml-anomalies.html) features. It also integrates with tools like [PagerDuty](https://www.elastic.co/guide/en/kibana/current/pagerduty-action-type.html) to monitor and promptly address potential issues that might otherwise go unnoticed until end users report them.
+Kibana offers [alerting](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [anomaly detection](https://www.elastic.co/guide/en/kibana/current/xpack-ml-anomalies.html) features. It also integrates with tools like [PagerDuty](https://www.elastic.co/guide/en/kibana/current/pagerduty-action-type.html) to monitor and promptly address potential issues that might otherwise go unnoticed until end users report them.
 
 ### Analysis 🔍
 
@@ -32,7 +32,7 @@ Basically, the goal is to limit being caught off guard by flying blind. As well 
 
 ## Tools & Technologies 🛠️
 
-### Web Event Generator
+### Web Event Generator 🌐
 
 Events are generated using the very handy [Fake Web Events](https://github.com/andresionek91/fake-web-events) library. A typical fake event looks like this:
 
@@ -73,3 +73,27 @@ Events are generated using the very handy [Fake Web Events](https://github.com/a
 The volume of events can be adjusted up or down based on testing needs. A look inside the Docker container for this application shows the stream of events as they generate.
 
 ![Events](https://i.imgur.com/zqtqxm6.gif)
+
+In real-life scenarios, dealing with the sheer avalanche of events being logged can quickly turn into a major challenge.
+
+### Apache Kafka 📡
+
+> Apache Kafka is a distributed event store and stream-processing platform. It is an open-source system developed by the Apache Software Foundation written in Java and Scala. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds.
+
+The broker is like a mail room. It takes in all the mail and makes sure they get to the right recipients. It doesn't care what's inside the notes; it just makes sure they get where they need to go.
+
+The `raw-web-events` topic receives events as they are generated, while the `enriched-web-events` topic (more on this in the Faust section) collects the processed events that are prepared for persistent storage.
+
+### Faust ⚙️
+
+>Faust is a Python library designed for building and deploying high-performance, event-driven, and streaming applications. It is particularly well-suited for processing and analyzing  >continuous streams of data, making it a powerful tool for real-time data processing, event-driven architectures, and stream processing pipelines.
+
+⚠️ The original Faust library was essentially abandoned by Robinhood, there is an actively maintained fork of Faust by the community called `faust-streaming` that is used for this project. You can read about it here: [LINK](https://faust-streaming.github.io/faust/)
+
+Faust is used in this pipeline to receive raw web events, categorize the UTM source of each event into higher level groupings using the `categorize_utm_source` method of the `EventEnrichment` class, and sends the events to the `enriched-web-events` topic. The new field will look like this example:
+
+```json
+"source_category": "social_media"
+```
+
+### ELK Stack 📚
