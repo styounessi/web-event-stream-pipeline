@@ -2,7 +2,7 @@
 Web Event Stream Processing Pipeline 
 </h1>
 
-An end-to-end, web event stream processing pipeline that spans event generation all the way up to visualization.
+An end-to-end web event stream processing pipeline encompassing event generation through visualization.
 
 ![Flow](https://i.imgur.com/biteH8p.png)
 
@@ -22,11 +22,13 @@ The idea behind this repo is to stand up a basic/viable functioning environment 
 
 ### Reactive Alerting 🚨
 
-KKibana offers powerful [alerting](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [anamoly detection](https://www.elastic.co/guide/en/kibana/current/xpack-ml-anomalies.html) features. It also integrates with tools like [PagerDuty](https://www.elastic.co/guide/en/kibana/current/pagerduty-action-type.html) to monitor and promptly address potential issues that might otherwise go unnoticed until end users report them. Quick reaction times can make a significant difference when every second counts.
+KKibana offers [alerting](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [anamoly detection](https://www.elastic.co/guide/en/kibana/current/xpack-ml-anomalies.html) features. It also integrates with tools like [PagerDuty](https://www.elastic.co/guide/en/kibana/current/pagerduty-action-type.html) to monitor and promptly address potential issues that might otherwise go unnoticed until end users report them.
 
 ### Analysis 🔍
 
 Kibana provides extensive [dashboarding and visualization](https://www.elastic.co/guide/en/kibana/current/dashboard.html) tools for data analysis. You can aggregate events to visualize changes over time and gain valuable insights by profiling user behaviors. This level of data collection enables the making of informed decisions and to optimize experiences based on what the data shows rather than operating on ambiguity.
+
+Basically, the goal is to limit being caught off guard by flying blind. As well as being able to examine events in near real-time rather than after the fact. 
 
 ## Tools & Technologies 🛠️
 
