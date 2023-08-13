@@ -88,17 +88,22 @@ The `raw-web-events` topic receives events as they are generated, while the `enr
 
 >Faust is a Python library designed for building and deploying high-performance, event-driven, and streaming applications. It is particularly well-suited for processing and analyzing  >continuous streams of data, making it a powerful tool for real-time data processing, event-driven architectures, and stream processing pipelines.
 
-⚠️ The original Faust library was essentially abandoned by Robinhood, there is an actively maintained fork of Faust by the community called `faust-streaming` that is used for this project. You can read about it here: [LINK](https://faust-streaming.github.io/faust/)
+⚠️ The original Faust library was essentially abandoned by Robinhood, there is an actively maintained community fork of Faust called `faust-streaming` that is used for this project. You can read about it here: [LINK](https://faust-streaming.github.io/faust/)
 
-Faust is used in this pipeline to receive raw web events, categorize the UTM source of each event into higher level groupings using the `categorize_utm_source` method of the `EventEnrichment` class, and sends the events to the `enriched-web-events` topic. The new field will look like this example:
+Faust is used in this pipeline to receive raw web events, categorize the UTM source of each event into higher level groupings using the `categorize_utm_source` method of the `EventEnrichment` class, and to send the events to the `enriched-web-events` topic. The new field will look like this example:
 
 ```json
 "source_category": "social_media"
 ```
 
+Another basic manipulation would be to remove certain fields that are not worth keeping while retaining the fields that are valuable to end users. 
+
 ### ELK Stack 📚
 
-#### Logstash ⛓️
+>The ELK Stack is a widely used combination of three tools: Elasticsearch, Logstash, and Kibana. It's designed to help organizations collect, process, store, and analyze
+>large volumes of data, especially log and event data, for various purposes such as monitoring, troubleshooting, and business insights.
+
+#### Logstash 🌉
 
 #### Elasticsearch 🗄️
 
