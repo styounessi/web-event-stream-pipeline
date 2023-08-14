@@ -127,19 +127,28 @@ You can see the new events with each refresh and all dashboards, configured aggr
 
 ### Docker 🐳 & Docker Compose 🐙
 
-This project is fully dockerized and comes with a `docker-compose.yml` file that orchestrates a multi-container setup. Each service is configured with dependencies to ensure a proper startup sequence.
+This project is fully dockerized and includes a `docker-compose.yml` file that orchestrates the multi-container setup. Each service is configured with dependencies to ensure a proper startup sequence and consistent runtime.
 
-All containers are spun up using `docker compose up` with `-d` added at the end if you would like to run in detached mode.
+All containers are spun up using `docker-compose up` with `-d` added at the end if you prefer detached mode.
 
-`zookeeper`, a supporting service of Kafka, is spun up with two volumes: `zk-data:/var/lib/zookeeper/data` & `zk-logs:/var/lib/zookeeper/log`. The health check periodically attempts to establish a network connection to the `zookeeper` service on port `2181` using the `nc` command. If the connection is successful, the service is considered healthy.
+The `zookeeper` service exists to support Kafka and is spun up with two volumes: `zk-data:/var/lib/zookeeper/data` & `zk-logs:/var/lib/zookeeper/log`. The health check periodically attempts to establish a network connection to the `zookeeper` service on port `2181` using the `nc` command. If the connection is successful, the service is considered healthy.
 
-> **Note:** Apache Kafka is moving away from Zookeeper in the near future but is still viable at this time which is why it was used here.
+> **Note:** Apache Kafka is moving away from Zookeeper in the near future, but it remains viable for now. You can read more about this below:
 >
-> Apache Kafka Raft (KRaft) is the consensus protocol that was introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This greatly simplifies
-> Kafka’s architecture by consolidating responsibility for metadata into Kafka itself, rather than splitting it between two different systems.
+> Apache Kafka Raft (KRaft) is the consensus protocol introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This significantly simplifies Kafka’s architecture by consolidating metadata responsibility within Kafka itself, eliminating the split between two systems.
 
-The `kafka` container initializes as a Kafka broker, it depends on the `zookeeper` service to become healthy before starting, ensuring proper coordination. It also has the same `nc` health check as the `zookeeper` container. The volume defined as `kafka-data:/var/lib/kafka/data` is to ensure data durability and seamless recovery in case of container restarts, etc.
+The `kafka` container initializes as a Kafka broker; it depends on the `zookeeper` service to become healthy before starting, ensuring proper coordination. It also employs the same `nc` health check as the `zookeeper` container. The volume `kafka-data:/var/lib/kafka/data` is defined to ensure data durability and seamless recovery in case of container restarts.
 
-Meanwhile, `kafka-topics-init` waits for both the `kafka` and `zookeeper` services to become healthy before proceeding. It executes the shell script defined in the `entrypoint` command to create both topics needed for this pipeline. Once that task is completed, it shuts down.
+Meanwhile, `kafka-topics-init` waits for both the `kafka` and `zookeeper` services to become healthy before proceeding. It executes the shell script defined in the `entrypoint` command to create the required topics for this pipeline. Once this task is completed, it shuts down.
 
-The `web-events` and `faust-processor` containers are built from their respective Dockerfiles that define the build criteria and execution scripts. Both containers check the readiness of the Kafka broker before proceeding; they rely on the broker being operational for successful execution.
+The `web-events` and `faust-processor` containers are built from their respective Dockerfiles, which define the build criteria and execution scripts. Both containers verify the readiness of the Kafka broker before proceeding; they rely on the broker being operational for successful execution.
+
+The `setup` service/container configures an 'Elastic' instance with security features. It ensures the setup of user authentication, SSL encryption, and certificates. This is necessary even in development settings, as Elastic Versions 8.0 and higher enable security by default. Once implemented, the setup service shuts down. All ELK stack services depend on the successful health condition of the `setup` container.
+
+All ELK stack services have designated volumes to preserve configurations and settings across containers.
+
+The `logstash-01` service depends on the included `logstash.conf` file to define the input, filter, and output conditions related to interfacing with Kafka and Elasticsearch for data bridging.
+
+The `es-01` service initializes a primary Elasticsearch node within the ELK stack. It acts as a primary data repository, indexing and storing enriched events from Kafka via the `logstash-01` service, enabling querying and analysis through Kibana.
+
+The `kibana` service offers a web-based interface for visualizing and interacting with data stored in Elasticsearch. It relies on the readiness of both the `es-01` and `setup` services to ensure a secure and operational environment. A designated volume, `kibanadata:/usr/share/kibana/data`, is employed to persistently store user settings, dashboards, and configurations across container restarts.
