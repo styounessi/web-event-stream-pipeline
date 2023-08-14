@@ -135,10 +135,12 @@ All containers are spun up using `docker-compose up` with `-d` added at the end 
 
 The `zookeeper` service exists to support Kafka and is spun up with two volumes: `zk-data:/var/lib/zookeeper/data` & `zk-logs:/var/lib/zookeeper/log`. The health check periodically attempts to establish a network connection to the `zookeeper` service on port `2181` using the `nc` command. If the connection is successful, the service is considered healthy.
 
-> **Note:** Apache Kafka is moving away from Zookeeper in the near future, but it remains viable for now. You can read more about this below:
+> **Note:** Apache Kafka is moving away from ZooKeeper in the near future, but it remains viable for now. You can read more about this below:
 >
 > Apache Kafka Raft (KRaft) is the consensus protocol introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This significantly simplifies
 > Kafka’s architecture by consolidating metadata responsibility within Kafka itself, eliminating the split between two systems.
+>
+> [Say Goodbye to ZooKeeper](https://community.ibm.com/community/user/blogs/matu-agarwal1/2023/03/31/say-goodbye-to-zookeeper)
 
 The `kafka` container initializes as a Kafka broker; it depends on the `zookeeper` service to become healthy before starting, ensuring proper coordination. It also employs the same `nc` health check as the `zookeeper` container. The volume `kafka-data:/var/lib/kafka/data` is defined to ensure data durability and seamless recovery in case of container restarts.
 
