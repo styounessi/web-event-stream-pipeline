@@ -156,7 +156,7 @@ The `es-01` service initializes a primary Elasticsearch node within the ELK stac
 
 The `kibana` service offers a web-based interface for visualizing and interacting with data stored in Elasticsearch. It relies on the readiness of both the `es-01` and `setup` services to ensure a secure and operational environment. A designated volume, `kibanadata:/usr/share/kibana/data`, is employed to persistently store user settings, dashboards, and configurations across container restarts.
 
-### Environment Varible File 🔑
+### Environment Variable File 🔑
 
 Not included in this repo is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
 
