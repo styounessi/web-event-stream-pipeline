@@ -98,14 +98,12 @@ Faust is used in this pipeline to receive raw web events, categorize the UTM sou
 "source_category": "social_media"
 ```
 
-Another basic manipulation would be to remove certain fields that are not worth keeping while retaining the fields that are valuable to end users. 
-
 ### ELK Stack 📚
 
 > The ELK Stack is a widely used combination of three tools: Elasticsearch, Logstash, and Kibana. It's designed to help organizations collect, process, store, and analyze
 > large volumes of data, especially log and event data, for various purposes such as monitoring, troubleshooting, and business insights.
 
-#### Logstash 🌉
+#### Logstash 🔗
 
 The `logstash.conf` file included in this repo configures the Logstash service needed to ingest data from a Kafka topic, parse and convert the JSON content into individual fields, and then forward the processed data to Elasticsearch for storage and indexing. The configuration allows for dynamic date-based indexing:
 
@@ -160,7 +158,7 @@ The `kibana` service offers a web-based interface for visualizing and interactin
 
 ### Environment Variable File 🔑
 
-Not included in this repo is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
+Not included in this repo (for obvious reasons) is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
 
 ```env
 # Password for the 'elastic' user (at least 6 characters)
