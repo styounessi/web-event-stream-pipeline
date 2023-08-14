@@ -78,7 +78,8 @@ In real-life scenarios, dealing with the sheer avalanche of events being logged 
 
 ### Apache Kafka 📡
 
-> Apache Kafka is a distributed event store and stream-processing platform. It is an open-source system developed by the Apache Software Foundation written in Java and Scala. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds.
+> Apache Kafka is a distributed event store and stream-processing platform. It is an open-source system developed by the Apache Software Foundation written in Java and Scala. The
+> project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds.
 
 The broker is like a mail room. It takes in all the mail and makes sure they get to the right recipients. It doesn't care what's inside the notes; it just makes sure they get where they need to go.
 
@@ -86,7 +87,8 @@ The `raw-web-events` topic receives events as they are generated, while the `enr
 
 ### Faust ⚙️
 
->Faust is a Python library designed for building and deploying high-performance, event-driven, and streaming applications. It is particularly well-suited for processing and analyzing  >continuous streams of data, making it a powerful tool for real-time data processing, event-driven architectures, and stream processing pipelines.
+> Faust is a Python library designed for building and deploying high-performance, event-driven, and streaming applications. It is particularly well-suited for processing and analyzing
+> continuous streams of data, making it a powerful tool for real-time data processing, event-driven architectures, and stream processing pipelines.
 
 ⚠️ The original Faust library was essentially abandoned by Robinhood, there is an actively maintained community fork of Faust called `faust-streaming` that is used for this project. You can read about it here: [LINK](https://faust-streaming.github.io/faust/)
 
@@ -100,8 +102,8 @@ Another basic manipulation would be to remove certain fields that are not worth 
 
 ### ELK Stack 📚
 
->The ELK Stack is a widely used combination of three tools: Elasticsearch, Logstash, and Kibana. It's designed to help organizations collect, process, store, and analyze
->large volumes of data, especially log and event data, for various purposes such as monitoring, troubleshooting, and business insights.
+> The ELK Stack is a widely used combination of three tools: Elasticsearch, Logstash, and Kibana. It's designed to help organizations collect, process, store, and analyze
+> large volumes of data, especially log and event data, for various purposes such as monitoring, troubleshooting, and business insights.
 
 #### Logstash 🌉
 
@@ -135,7 +137,8 @@ The `zookeeper` service exists to support Kafka and is spun up with two volumes:
 
 > **Note:** Apache Kafka is moving away from Zookeeper in the near future, but it remains viable for now. You can read more about this below:
 >
-> Apache Kafka Raft (KRaft) is the consensus protocol introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This significantly simplifies Kafka’s architecture by consolidating metadata responsibility within Kafka itself, eliminating the split between two systems.
+> Apache Kafka Raft (KRaft) is the consensus protocol introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This significantly simplifies
+> Kafka’s architecture by consolidating metadata responsibility within Kafka itself, eliminating the split between two systems.
 
 The `kafka` container initializes as a Kafka broker; it depends on the `zookeeper` service to become healthy before starting, ensuring proper coordination. It also employs the same `nc` health check as the `zookeeper` container. The volume `kafka-data:/var/lib/kafka/data` is defined to ensure data durability and seamless recovery in case of container restarts.
 
