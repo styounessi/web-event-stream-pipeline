@@ -126,3 +126,20 @@ You can see the new events with each refresh and all dashboards, configured aggr
 <img src="https://i.imgur.com/kPgrzLQ.png" width="500"/> <img src="https://i.imgur.com/PgZjWYy.png" width="500"/>
 
 ### Docker 🐳 & Docker Compose 🐙
+
+This project is fully dockerized and comes with a `docker-compose.yml` file that orchestrates a multi-container setup. Each service is configured with dependencies to ensure a proper startup sequence.
+
+All containers are spun up using `docker compose up` with `-d` added at the end if you would like to run in detached mode.
+
+`zookeeper`, a supporting service of Kafka, is spun up with two volumes: `zk-data:/var/lib/zookeeper/data` & `zk-logs:/var/lib/zookeeper/log`. The health check periodically attempts to establish a network connection to the `zookeeper` service on port `2181` using the `nc` command. If the connection is successful, the service is considered healthy.
+
+> **Note:** Apache Kafka is moving away from Zookeeper in the near future but is still viable at this time which is why it was used here.
+>
+> Apache Kafka Raft (KRaft) is the consensus protocol that was introduced in KIP-500 to remove Apache Kafka’s dependency on ZooKeeper for metadata management. This greatly simplifies
+> Kafka’s architecture by consolidating responsibility for metadata into Kafka itself, rather than splitting it between two different systems.
+
+The `kafka` container initializes as a Kafka broker, it depends on the `zookeeper` service to become healthy before starting, ensuring proper coordination. It also has the same `nc` health check as the `zookeeper` container. The volume defined as `kafka-data:/var/lib/kafka/data` is to ensure data durability and seamless recovery in case of container restarts, etc.
+
+Meanwhile, `kafka-topics-init` waits for both the `kafka` and `zookeeper` services to become healthy before proceeding. It executes the shell script defined in the `entrypoint` command to create both topics needed for this pipeline. Once that task is completed, it shuts down.
+
+The `web-events` and `faust-processor` containers are built from their respective Dockerfiles that define the build criteria and execution scripts. Both containers check the readiness of the Kafka broker before proceeding; they rely on the broker being operational for successful execution.
