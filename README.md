@@ -152,3 +152,35 @@ The `logstash-01` service depends on the included `logstash.conf` file to define
 The `es-01` service initializes a primary Elasticsearch node within the ELK stack. It acts as a primary data repository, indexing and storing enriched events from Kafka via the `logstash-01` service, enabling querying and analysis through Kibana.
 
 The `kibana` service offers a web-based interface for visualizing and interacting with data stored in Elasticsearch. It relies on the readiness of both the `es-01` and `setup` services to ensure a secure and operational environment. A designated volume, `kibanadata:/usr/share/kibana/data`, is employed to persistently store user settings, dashboards, and configurations across container restarts.
+
+### Environment Varible File 🔑
+
+Not included in this report is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
+
+```env
+# Password for the 'elastic' user (at least 6 characters)
+ELASTIC_PASSWORD=your-password-here
+
+# Password for the 'kibana_system' user (at least 6 characters)
+KIBANA_PASSWORD=your-password-here
+
+# Version of the Elastic Stack
+STACK_VERSION=use-desired-version-here
+
+# Set the cluster name
+CLUSTER_NAME=your-cluster-name
+
+# Set to 'basic'
+LICENSE=basic
+
+# Port to expose Elasticsearch HTTP API to the host
+ES_PORT=9200
+
+# Port to expose Kibana to the host
+KIBANA_PORT=5601
+
+# Increase or decrease based on the available host memory (in bytes)
+ES_MEM_LIMIT=1073741824
+KB_MEM_LIMIT=1073741824
+LS_MEM_LIMIT=1073741824
+```
