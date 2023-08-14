@@ -155,7 +155,7 @@ The `kibana` service offers a web-based interface for visualizing and interactin
 
 ### Environment Varible File 🔑
 
-Not included in this report is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
+Not included in this repo is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
 
 ```env
 # Password for the 'elastic' user (at least 6 characters)
