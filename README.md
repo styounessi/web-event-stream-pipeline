@@ -158,7 +158,9 @@ The `kibana` service offers a web-based interface for visualizing and interactin
 
 ### Environment Variable File 🔑
 
-Not included in this repo (for obvious reasons) is an `.env` file that will need to go in the root project directory. It will contain sensitive and not-so-sensitive variables for the ELK stack setup and configuration. You can see the entire structure of the file in the template below:
+This repository includes an `.env.example` file, which serves as a template for configuring environment variables required by the ELK stack setup and configuration. To use these variables, you'll need to rename this file to `.env`.
+
+The `.env.example` file contains both sensitive and non-sensitive variables necessary for the proper functioning of the ELK stack. Below is the complete structure of the file, along with explanations for each variable:
 
 ```env
 # Password for the 'elastic' user (at least 6 characters)
