@@ -103,7 +103,7 @@ Faust is used in this pipeline to receive raw web events, categorize the UTM sou
 > The ELK Stack is a widely used combination of three tools: Elasticsearch, Logstash, and Kibana. It's designed to help organizations collect, process, store, and analyze
 > large volumes of data, especially log and event data, for various purposes such as monitoring, troubleshooting, and business insights.
 
-#### Logstash 🔗
+#### Logstash 🪵
 
 The `logstash.conf` file included in this repo configures the Logstash service needed to ingest data from a Kafka topic, parse and convert the JSON content into individual fields, and then forward the processed data to Elasticsearch for storage and indexing. The configuration allows for dynamic date-based indexing:
 
