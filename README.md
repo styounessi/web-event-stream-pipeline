@@ -7,7 +7,7 @@ An end-to-end web event stream processing pipeline encompassing event generation
 ![Flow](https://i.imgur.com/qZOzBPc.png)
 
 ## The Idea 🤔
-The idea behind this repo is to stand up a basic/viable functioning environment for a stream processing pipeline centered around capturing, processing, and persistently storing web events as they occur in real-time. The layers and steps can be generally described in this manner:
+The idea behind this repo is to stand up a basic/viable functioning environment for a stream processing pipeline centered around capturing, processing, and persistently storing web events as they occur. The layers and steps can be generally described in this manner:
 
 1. **Event Generation:** Web events are generated, using a fake random event generator, and sent to a Kafka broker via a Kafka topic designated for 'raw' events.
 2. **Broker**: The Kafka broker serves as a central hub, facilitating the reception and distribution of events through Kafka topics.
@@ -27,8 +27,6 @@ Kibana offers [alerting](https://www.elastic.co/guide/en/kibana/current/alerting
 ### Analysis 🔍
 
 Kibana provides extensive [dashboarding and visualization](https://www.elastic.co/guide/en/kibana/current/dashboard.html) tools for data analysis. You can aggregate events to visualize changes over time and gain valuable insights by profiling user behaviors. This level of data collection enables the making of informed decisions and to optimize experiences based on what the data shows rather than operating on ambiguity.
-
-Basically, the goal is to limit being caught off guard by flying blind. As well as being able to examine events in near real-time rather than after the fact. 
 
 ## Tools & Technologies 🛠️
 
@@ -164,28 +162,28 @@ The `.env.example` file contains both sensitive and non-sensitive variables nece
 
 ```env
 # Password for the 'elastic' user (at least 6 characters)
-ELASTIC_PASSWORD=your-password-here
+ELASTIC_PASSWORD=
 
 # Password for the 'kibana_system' user (at least 6 characters)
-KIBANA_PASSWORD=your-password-here
+KIBANA_PASSWORD=
 
 # Version of the Elastic Stack
-STACK_VERSION=use-desired-version-here
+STACK_VERSION=
 
 # Set the cluster name
-CLUSTER_NAME=your-cluster-name
+CLUSTER_NAME=
 
-# Set to 'basic'
-LICENSE=basic
+# Options are 'basic' or 'trial' to start a 30-day free trial
+LICENSE=
 
 # Port to expose Elasticsearch HTTP API to the host
-ES_PORT=9200
+ES_PORT=
 
 # Port to expose Kibana to the host
-KIBANA_PORT=5601
+KIBANA_PORT=
 
-# Increase or decrease based on the available host memory (in bytes)
-ES_MEM_LIMIT=1073741824
-KB_MEM_LIMIT=1073741824
-LS_MEM_LIMIT=1073741824
+# Increase or decrease based on the available host memory
+ES_MEM_LIMIT=
+KB_MEM_LIMIT=
+LS_MEM_LIMIT=
 ```
