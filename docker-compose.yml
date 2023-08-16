@@ -170,16 +170,16 @@ services:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
       ELASTIC_HOSTS: "https://es-01:9200"
       ELASTIC_INDEX: "web-events"
-  healthcheck:
-    test: 
-      [
-      "CMD",
-      "curl -s -I http://localhost:9600 | grep -q 'HTTP/1.1 200 OK'"
-      ]
-    interval: 10s
-    timeout: 10s
-    retries: 30
-    restart: unless-stopped
+    healthcheck:
+      test: 
+        [
+        "CMD",
+        "curl -s -I http://localhost:9600 | grep -q 'HTTP/1.1 200 OK'"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      restart: unless-stopped
 
   es-01:
     container_name: es-01
