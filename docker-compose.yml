@@ -15,10 +15,10 @@ services:
       timeout: 10s
       retries: 2
       start_period: 60s
-    restart: unless-stopped
     volumes:
       - zk-data:/var/lib/zookeeper/data
       - zk-logs:/var/lib/zookeeper/log
+    restart: unless-stopped
 
   kafka:
     container_name: kafka
@@ -43,9 +43,9 @@ services:
       timeout: 10s
       retries: 2
       start_period: 60s
-    restart: unless-stopped
     volumes:
       - kafka-data:/var/lib/kafka/data
+    restart: unless-stopped
 
   kafka-topics-init:
     container_name: kafka-topics-init
@@ -179,7 +179,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 30
-      restart: unless-stopped
+    restart: unless-stopped
 
   es-01:
     container_name: es-01
