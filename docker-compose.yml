@@ -55,19 +55,18 @@ services:
         condition: service_healthy
       zookeeper:
         condition: service_healthy
-    entrypoint: ["/bin/sh", "-c"]
-    command: |
-      "
-      kafka-topics --bootstrap-server kafka:29092 --list
+    command: >
+      sh -c '
+        kafka-topics --bootstrap-server kafka:29092 --list
 
-      echo -e 'Creating kafka topics'
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic raw-web-events --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic enriched-web-events --replication-factor 1 --partitions 1
+        echo -e "Creating kafka topics"
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic raw-web-events --replication-factor 1 --partitions 1
+        kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic enriched-web-events --replication-factor 1 --partitions 1
 
-      echo -e 'Successfully created:'
-      kafka-topics --bootstrap-server kafka:29092 --list 
-      "
- 
+        echo -e "Successfully created:"
+        kafka-topics --bootstrap-server kafka:29092 --list
+      '
+
   web-events:
     container_name: web-events
     build: 
@@ -145,7 +144,7 @@ services:
         echo "All done!";
       '
     healthcheck:
-      test: ["CMD-SHELL", "[ -f config/certs/es-01/es-01.crt ]"]
+      test: ["CMD", "[ -f config/certs/es-01/es-01.crt ]"]
       interval: 1s
       timeout: 5s
       retries: 120
@@ -171,6 +170,15 @@ services:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
       ELASTIC_HOSTS: "https://es-01:9200"
       ELASTIC_INDEX: "web-events"
+  healthcheck:
+    test: 
+      [
+      "CMD",
+      "curl -s -I http://localhost:9600 | grep -q 'HTTP/1.1 200 OK'"
+      ]
+    interval: 10s
+    timeout: 10s
+    retries: 30
     restart: unless-stopped
 
   es-01:
@@ -211,12 +219,12 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
+          "CMD",
           "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
         ]
       interval: 10s
       timeout: 10s
-      retries: 120
+      retries: 30
     restart: unless-stopped
 
   kibana:
@@ -244,12 +252,12 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
+          "CMD",
           "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
         ]
       interval: 10s
       timeout: 10s
-      retries: 120
+      retries: 30
     restart: unless-stopped
 
 volumes:
