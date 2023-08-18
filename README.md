@@ -117,7 +117,7 @@ Elasticsearch serves as the persistent data layer that stores and makes data sea
 
 In conjunction with Elasticsearch, Kibana is the data visualization and exploration tool that can be used to interact with the event data stored in Elasticsearch.
 
-![Hits](https://i.imgur.com/ms1csWS.gif)
+![Hits](https://i.imgur.com/zsWCNjt.gif)
 
 You can see the new events with each refresh and all dashboards, configured aggregations, etc are all updated with the changing data.
 
