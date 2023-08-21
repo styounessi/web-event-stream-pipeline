@@ -13,7 +13,7 @@ The idea behind this repo is to stand up a basic/viable functioning environment 
 2. **Broker**: The Kafka broker serves as a central hub, facilitating the reception and distribution of events through Kafka topics.
 3. **Stream Processor**: The Faust stream processor takes the incoming 'raw' web events from the Kafka broker, enriches them with additional categorization, and then sends the altered data to another Kafka topic designated for 'enriched' events.
 4. **Collection Engine**: The enriched web events are then consumed by Logstash via the 'enriched' Kafka topic.
-5. **Data Storage & Indexing:**: Elasticsearch serves as a dynamic data storage and indexing solution within the pipeline.
+5. **Data Storage & Indexing**: Elasticsearch serves as a dynamic data storage and indexing solution within the pipeline.
 6. **Analysis & Visualization**: Kibana enables users to explore and analyze the stored data in Elasticsearch.
 
 ⚠️ This project is done for fun/interest and to experiment with different ways to process, massage, and enrich events. 
