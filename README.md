@@ -18,16 +18,6 @@ The idea behind this repo is to stand up a basic/viable functioning environment 
 
 ⚠️ This project is done for fun/interest and to experiment with different ways to process, massage, and enrich events. 
 
-## Why Do This? 🤷‍♂️
-
-### Reactive Alerting 🚨
-
-Kibana offers [alerting](https://www.elastic.co/guide/en/kibana/current/alerting-getting-started.html) and [anomaly detection](https://www.elastic.co/guide/en/kibana/current/xpack-ml-anomalies.html) features. It also integrates with tools like [PagerDuty](https://www.elastic.co/guide/en/kibana/current/pagerduty-action-type.html) to monitor and promptly address potential issues that might otherwise go unnoticed until end users report them.
-
-### Analysis 🔍
-
-Kibana provides extensive [dashboarding and visualization](https://www.elastic.co/guide/en/kibana/current/dashboard.html) tools for data analysis. You can aggregate events to visualize changes over time and gain valuable insights by profiling user behaviors. This level of data collection enables the making of informed decisions and to optimize experiences based on what the data shows rather than operating on ambiguity.
-
 ## Tools & Technologies 🛠️
 
 ### Web Event Generator 🌐
