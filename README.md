@@ -2,7 +2,7 @@
 Web Event Stream Processing Pipeline 
 </h1>
 
-An end-to-end web event stream processing pipeline encompassing event generation through visualization.
+An end-to-end web event stream processing pipeline that captures, enriches, stores, and visualizes web events.
 
 ![Flow](https://i.imgur.com/qZOzBPc.png)
 
