@@ -132,6 +132,14 @@ The `kafka` container initializes as a Kafka broker; it depends on the `zookeepe
 
 Meanwhile, `kafka-topics-init` waits for both the `kafka` and `zookeeper` services to become healthy before proceeding. It executes the shell script defined in the `entrypoint` command to create the required topics for this pipeline. Once this task is completed, it shuts down.
 
+> ❗ Please keep in mind that the current topic creation commands (seen below) are using replication and partition settings of `1` for testing purposes only. In real world circumstances, your number of brokers, replications, and
+>  partitions will need to be planned based on anticipated throughput, number of consumers, etc. 
+>
+>  ```
+>  kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic raw-web-events --replication-factor 1 --partitions 1
+>  kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic enriched-web-events --replication-factor 1 --partitions 1
+>  ```
+
 The `web-events` and `faust-processor` containers are built from their respective Dockerfiles, which define the build criteria and execution scripts. Both containers verify the readiness of the Kafka broker before proceeding; they rely on the broker being operational for successful execution.
 
 The `setup` service/container configures an 'Elastic' instance with security features. It ensures the setup of user authentication, SSL encryption, and certificates. This is necessary even in development settings, as Elastic Versions 8.0 and higher enable security by default. Once implemented, the setup service shuts down. All ELK stack services depend on the successful health condition of the `setup` container.
