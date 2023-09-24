@@ -60,6 +60,8 @@ services:
         kafka-topics --bootstrap-server kafka:29092 --list
 
         echo -e "Creating kafka topics"
+
+        # Note: The replication factor and partition count of 1 are for testing environments only.
         kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic raw-web-events --replication-factor 1 --partitions 1
         kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic enriched-web-events --replication-factor 1 --partitions 1
 
