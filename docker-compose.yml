@@ -47,6 +47,7 @@ services:
       - kafka-data:/var/lib/kafka/data
     restart: unless-stopped
 
+  # Note: The replication factor and partition count of 1 are for testing environments only.
   kafka-topics-init:
     container_name: kafka-topics-init
     image: confluentinc/cp-kafka:latest
@@ -61,7 +62,6 @@ services:
 
         echo -e "Creating kafka topics"
 
-        # Note: The replication factor and partition count of 1 are for testing environments only.
         kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic raw-web-events --replication-factor 1 --partitions 1
         kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic enriched-web-events --replication-factor 1 --partitions 1
 
