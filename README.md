@@ -80,11 +80,15 @@ The `raw-web-events` topic receives events as they are generated, while the `enr
 
 ⚠️ The original Faust library was essentially abandoned by Robinhood, there is an actively maintained community fork of Faust called `faust-streaming` that is used for this project. You can read about it here: [LINK](https://faust-streaming.github.io/faust/)
 
-Faust is used in this pipeline to receive raw web events, categorize the UTM source of each event into higher level groupings using the `categorize_utm_source` method of the `EventEnrichment` class, and to send the events to the `enriched-web-events` topic. The new field will look like this example:
+Faust is used in this pipeline to receive raw web events and to categorize the UTM source of each event into higher level groupings using the `categorize_utm_source` method of the `EventEnrichment` class. At the same time, the email domain proceeding the `@` sign in the `user_custom_id` field is extracted via the `extract_email_domain` method of the aforementioned class. 
+
+The new fields added will look like this example:
 
 ```json
 "source_category": "social_media"
+"user_email_domain": "hotmail.com"
 ```
+These newly enriched events are sent back to the Kafka broker via the `enriched-web-events` topic.
 
 ### ELK Stack 📚
 
