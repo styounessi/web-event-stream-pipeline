@@ -1,7 +1,7 @@
 import os
 import faust
 
-from event_ops import EventEnrichment
+from event_utils import EventEnrichment
 
 
 # Grab Kafka broker and input/output topic environment variables
